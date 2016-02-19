@@ -1,0 +1,1168 @@
+<!DOCTYPE html><html>
+
+<head>
+<meta charset="utf-8">
+<title>基于webpack的前端工程化开发和实践</title>
+<style type="text/css">
+body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px; }
+
+body > *:first-child {
+  margin-top: 0 !important; }
+body > *:last-child {
+  margin-bottom: 0 !important; }
+
+a {
+  color: #4183C4; }
+a.absent {
+  color: #cc0000; }
+a.anchor {
+  display: block;
+  padding-left: 30px;
+  margin-left: -30px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative; }
+
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA09pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoMTMuMCAyMDEyMDMwNS5tLjQxNSAyMDEyLzAzLzA1OjIxOjAwOjAwKSAgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OUM2NjlDQjI4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OUM2NjlDQjM4ODBGMTFFMTg1ODlEODNERDJBRjUwQTQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5QzY2OUNCMDg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5QzY2OUNCMTg4MEYxMUUxODU4OUQ4M0REMkFGNTBBNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsQhXeAAAABfSURBVHjaYvz//z8DJYCRUgMYQAbAMBQIAvEqkBQWXI6sHqwHiwG70TTBxGaiWwjCTGgOUgJiF1J8wMRAIUA34B4Q76HUBelAfJYSA0CuMIEaRP8wGIkGMA54bgQIMACAmkXJi0hKJQAAAABJRU5ErkJggg==) no-repeat 10px center;
+  text-decoration: none; }
+
+h1 tt, h1 code {
+  font-size: inherit; }
+
+h2 tt, h2 code {
+  font-size: inherit; }
+
+h3 tt, h3 code {
+  font-size: inherit; }
+
+h4 tt, h4 code {
+  font-size: inherit; }
+
+h5 tt, h5 code {
+  font-size: inherit; }
+
+h6 tt, h6 code {
+  font-size: inherit; }
+
+h1 {
+  font-size: 28px;
+  color: black; }
+
+h2 {
+  font-size: 24px;
+  border-bottom: 1px solid #cccccc;
+  color: black; }
+
+h3 {
+  font-size: 18px; }
+
+h4 {
+  font-size: 16px; }
+
+h5 {
+  font-size: 14px; }
+
+h6 {
+  color: #777777;
+  font-size: 14px; }
+
+p, blockquote, ul, ol, dl, li, table, pre {
+  margin: 15px 0; }
+
+hr {
+  background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAECAYAAACtBE5DAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OENDRjNBN0E2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OENDRjNBN0I2NTZBMTFFMEI3QjRBODM4NzJDMjlGNDgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo4Q0NGM0E3ODY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo4Q0NGM0E3OTY1NkExMUUwQjdCNEE4Mzg3MkMyOUY0OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqqezsUAAAAfSURBVHjaYmRABcYwBiM2QSA4y4hNEKYDQxAEAAIMAHNGAzhkPOlYAAAAAElFTkSuQmCC) repeat-x 0 0;
+  border: 0 none;
+  color: #cccccc;
+  height: 4px;
+  padding: 0;
+}
+
+body > h2:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+body > h1:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+  body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+  margin-top: 0;
+  padding-top: 0; }
+
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+  margin-top: 0;
+  padding-top: 0; }
+
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+  margin-top: 0; }
+
+li p.first {
+  display: inline-block; }
+li {
+  margin: 0; }
+ul, ol {
+  padding-left: 30px; }
+
+ul :first-child, ol :first-child {
+  margin-top: 0; }
+
+dl {
+  padding: 0; }
+  dl dt {
+    font-size: 14px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0;
+    margin: 15px 0 5px; }
+    dl dt:first-child {
+      padding: 0; }
+    dl dt > :first-child {
+      margin-top: 0; }
+    dl dt > :last-child {
+      margin-bottom: 0; }
+  dl dd {
+    margin: 0 0 15px;
+    padding: 0 15px; }
+    dl dd > :first-child {
+      margin-top: 0; }
+    dl dd > :last-child {
+      margin-bottom: 0; }
+
+blockquote {
+  border-left: 4px solid #dddddd;
+  padding: 0 15px;
+  color: #777777; }
+  blockquote > :first-child {
+    margin-top: 0; }
+  blockquote > :last-child {
+    margin-bottom: 0; }
+
+table {
+  padding: 0;border-collapse: collapse; }
+  table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0; }
+    table tr:nth-child(2n) {
+      background-color: #f8f8f8; }
+    table tr th {
+      font-weight: bold;
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr td {
+      border: 1px solid #cccccc;
+      margin: 0;
+      padding: 6px 13px; }
+    table tr th :first-child, table tr td :first-child {
+      margin-top: 0; }
+    table tr th :last-child, table tr td :last-child {
+      margin-bottom: 0; }
+
+img {
+  max-width: 100%; }
+
+span.frame {
+  display: block;
+  overflow: hidden; }
+  span.frame > span {
+    border: 1px solid #dddddd;
+    display: block;
+    float: left;
+    overflow: hidden;
+    margin: 13px 0 0;
+    padding: 7px;
+    width: auto; }
+  span.frame span img {
+    display: block;
+    float: left; }
+  span.frame span span {
+    clear: both;
+    color: #333333;
+    display: block;
+    padding: 5px 0 0; }
+span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-center > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: center; }
+  span.align-center span img {
+    margin: 0 auto;
+    text-align: center; }
+span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both; }
+  span.align-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px 0 0;
+    text-align: right; }
+  span.align-right span img {
+    margin: 0;
+    text-align: right; }
+span.float-left {
+  display: block;
+  margin-right: 13px;
+  overflow: hidden;
+  float: left; }
+  span.float-left span {
+    margin: 13px 0 0; }
+span.float-right {
+  display: block;
+  margin-left: 13px;
+  overflow: hidden;
+  float: right; }
+  span.float-right > span {
+    display: block;
+    overflow: hidden;
+    margin: 13px auto 0;
+    text-align: right; }
+
+code, tt {
+  margin: 0 2px;
+  padding: 0 5px;
+  white-space: nowrap;
+  border: 1px solid #eaeaea;
+  background-color: #f8f8f8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0;
+  white-space: pre;
+  border: none;
+  background: transparent; }
+
+.highlight pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  font-size: 13px;
+  line-height: 19px;
+  overflow: auto;
+  padding: 6px 10px;
+  border-radius: 3px; }
+  pre code, pre tt {
+    background-color: transparent;
+    border: none; }
+
+sup {
+    font-size: 0.83em;
+    vertical-align: super;
+    line-height: 0;
+}
+* {
+	-webkit-print-color-adjust: exact;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+	table, pre {
+		page-break-inside: avoid;
+	}
+	pre {
+		word-wrap: break-word;
+	}
+}
+</style>
+</head>
+<body>
+<h1 id="toc_0">基于webpack的前端工程化开发和实践</h1>
+
+<h2 id="toc_1">背景</h2>
+
+<p>前端经历了初期的野蛮生长（切图，写简单的特效）——为了兼容浏览器兼容性而出现的各种类库（JQUERY,YUI等——mv*（代码多了，也就想到怎样组织代码结构，backbone，angularjs，react等）——工程化（利用grunt，gulp，yeoman,webpack做项目脚手架以及打包部署），在对全端化、全栈化以及工程化的要求日益增高下，我们希望能探索出一套比较友好而且完善的解决方案，去支持我的业务场景，用尽量少的配置，尽量简单的使用命令，能覆盖到我们前端开发的方方面面，同时与服务端之间进行友好的协作。</p>
+
+<h2 id="toc_2">工程化</h2>
+
+<blockquote>
+<p>软件工程是一门研究用工程化方法构建和维护有效的、实用的和高质量的软件的学科。
+目的是在给定成本、进度的前提下，开发出具有可修改性、有效性、可靠性、可理解性、可维护性、可重用性、可适应性、可移植性、可追踪性和可互操作性并满足用户需求的软件产品。
+<a href="http://baike.baidu.com/link?url=8KWAhpkQgUuyqAdcnb0Y380yJ5Ol8pY1-cGPR_iegeVsmnskjrZPiTLsVavNguvCSwBzhLFpUMFtOK0EiQtmAcGQRREMQa6PqF-4L62jQqC">软件工程释义</a>_</p>
+</blockquote>
+
+<h3 id="toc_3">相关要素</h3>
+
+<p>不同的研发岗位和技术分工都会根据自身的需求去具体落实工程化的相关实现</p>
+
+<p>结合当前项目的具体分工情况，需要落实的地方有如下几个方面:</p>
+
+<ul>
+<li>功能细分化，技术全栈化，人人产品化</li>
+<li>功能完善的IDE，能快速方便的完成代码的结构与组织，语法检测，编译与调试，打包构建等，覆盖整个开发流程;</li>
+<li>有固定或者约定的工程模式，规定软件所依赖的不同类别的资源的存放路径和代码的组织方式等,并且可以通过脚手架实现项目的快速初始化;</li>
+<li>快速集成各种资源的能力，完成对资源的获取、打包、发布、版本管理等能力；</li>
+<li>和其他系统的集成，如CI系统、上线系统、运维系统、监控系统等；</li>
+</ul>
+
+<h2 id="toc_4">前端的工程化</h2>
+
+<p>前端是一种特殊的GUI软件，它有两个特殊性：一是前端由三种编程语言组成，二是前端代码在用户端运行时增量安装。html、css和js的配合才能保证webapp的运行，增量安装是按需加载的需要。开发完成后输出三种以上不同格式的静态资源，静态资源之间有可能存在互相依赖关系，最终构成一个复杂的资源依赖。</p>
+
+<ul>
+<li>提供开发所需的一整套运行环境;</li>
+<li>资源管理，包括资源获取、依赖处理、实时更新、按需加载、公共模块管理等；</li>
+<li>打通研发链路的各个环节，compile、debug、mock、proxy、test、build、deploy等；</li>
+</ul>
+
+<h2 id="toc_5">资源管理</h2>
+
+<p><strong>资源管理</strong>和<strong>前端组件化</strong>是目前每个前端工程项目都需要直接面对的两大问题，前者主要解决的是效率问题，后者解决前段代码复用的问题。
+目前效率工程这边的前端项目主要以webpack作为前端自动化工具（可组合gulp,yeoman,mockserver等）管理资源，以react+redux来实现代码的组件化，相对于grunt,gulp,requires/seajs,bower等资源包管理工具，webpack具备如下几点优势：</p>
+
+<ul>
+<li>资源管理功能强大，兼容AMD,CMD,commonJS等多种标准;</li>
+<li>串联式模块加载器以及插件机制，让其具有更好的灵活性和扩展性，例如提供对CoffeeScript、ES6的支持；</li>
+<li>可以基于配置或者智能分析打包成多个文件，实现公共模块或者按需加载；</li>
+<li>支持对CSS，图片等资源进行打包，从而无需借助Grunt或Gulp；</li>
+<li>开发时在内存中完成打包，性能更快，完全可以支持开发过程的实时打包需求；</li>
+<li>能非常方便的与react协作开发</li>
+</ul>
+
+<p><img src="./imgs/what-is-webpack.png" alt="what-is-webpack.png"></p>
+
+<p>快速安装：</p>
+
+<div><pre><code class="language-none">$ npm install -g webpack webpack-dev-server</code></pre></div>
+
+<p>package.json可以加入一个script字段作为开发命令</p>
+
+<div><pre><code class="language-javascript">&quot;scripts&quot;: {
+   &quot;start&quot;: &quot;webpack-dev-server --hot --progress --colors&quot;,
+   &quot;build&quot;: &quot;NODE_ENV=production webpack --progress --colors&quot;
+}</code></pre></div>
+
+<p>项目运行执行如下命令即可：</p>
+
+<div><pre><code class="language-shell">npm run start 　# 项目启动
+npm run build　 # 项目编译</code></pre></div>
+
+<p>其他常用<a href="http://webpack.github.io/docs/cli.html">构建参数</a>释义：</p>
+
+<div><pre><code class="language-shell">$ webpack --display-error-details  # 方便出错时能查阅更详尽的信息（如寻找模块的过程），从而更好定位到问题。
+$ webpack --watch  # 监听变动并自动打包
+$ webpack -p  # 压缩混淆脚本
+$ webpack -d  # 生成map映射文件
+$ webpack -colors  # 命令带色彩高亮显示</code></pre></div>
+
+<h3 id="toc_6">文件配置</h3>
+
+<p>每个项目下都必须配置有一个 webpack.config.js ，它的作用如同常规的 gulpfile.js/Gruntfile.js ，就是一个配置项，告诉需要webpack需要如何构建当前的任务和开发信息。</p>
+
+<h3 id="toc_7">webpack的资源引用</h3>
+
+<blockquote>
+<ol>
+<li><p>根据webpack的设计理念，所有资源都是“模块”，webpack内部实现了一套资源加载机制，不同的资源可以采用不同的loader。</p></li>
+<li><p>除了借助插件体系加载不同类型的资源文件之外，webpack还对输出结果提供了非常精细的控制能力，开发者只需要根据需要调整参数即可。</p></li>
+<li><p>配置好特定类型的资源对应的loaders，在业务代码直接使用webpack提供的require（source path）接口即可</p></li>
+<li><p>通过loader机制，可以不需要做额外的转换即可加载浏览器不直接支持的资源类型，如.scss、.less、.json、.ejs等</p></li>
+</ol>
+</blockquote>
+
+<div><pre><code class="language-javascript">module: {
+    loaders: [
+      {
+        test: /\.js[x]?$/,  // 表示匹配的资源类型
+        exclude: /node_modules/,　// 表示需要排除的查找目录
+        include: __dirname,　　// 表示需要包含查找目录
+        loader: &#39;react-hot!babel-loader?presets[]=es2015&amp;presets[]=react&#39; // 表示用来加载这种类型的资源的loader 
+      },
+      {
+        test: /\.json$/,
+        loader: &#39;json-loader&#39;
+      },
+      {
+        test: /\.less$/,
+        loader: isDebug ? &#39;style!css!less&#39; :　// style-loader会以内联资源的形式插入到页面的head中
+          ExtractTextPlugin.extract(&#39;style-loader&#39;, &#39;css-loader!less-loader&#39;)
+      },
+      {
+        test: /\.css$/,
+        loader: isDebug ? &#39;style-loader!css-loader&#39; :
+          ExtractTextPlugin.extract(&#39;style-loader&#39;, &#39;css-loader&#39;)
+      },
+      {
+        test: /\.(jpeg|jpg|png|gif)$/,
+        loader: &#39;url?limit=8192&amp;name=images/[hash:8].[name].[ext]&#39;
+      },
+      {
+        test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
+        loader: &#39;url?limit=10000&amp;mimetype=application/font-woff&#39;
+      },
+      {
+        test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+        loader: &#39;url?limit=10000&amp;mimetype=application/octet-stream&#39;
+      },
+      {
+        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+        loader: &#39;url?limit=10000&amp;mimetype=image/svg+xml&#39;
+      }
+    ]
+  }
+
+// 页面资源引入
+require(&#39;../../css/vendors.css&#39;);
+require(&#39;../../less/style.less&#39;);
+var MenuData = require(&#39;../data/tabTree.json&#39;); // =&gt; return json object
+var fileContent = require(&quot;raw!./file.txt&quot;); // =&gt; return file.txt content as string
+
+/* 注意，require()还支持在资源path前面指定loader，即require(![loaders list]![source path])形式：
+ * require()时指定的loader会覆盖配置文件里对应的loader配置项。
+ */
+
+// “bootstrap.less”这个资源会先被&quot;less-loader&quot;处理，
+// 其结果又会被&quot;css-loader&quot;处理，接着是&quot;style-loader&quot;
+// 可类比pipe操作
+require(&quot;!style!css!less!bootstrap/less/bootstrap.less&quot;);
+</code></pre></div>
+
+<h3 id="toc_8">注意事项</h3>
+
+<blockquote>
+<ol>
+<li><p>webpack内部实现了一个全局的webpackJsonp()用于加载处理后的资源，并且webpack把资源进行重新编号，每一个资源成为一个模块，对应一个id</p></li>
+<li><p>对于在css中引入的外部资源，通常需要借助url-loader进行加载并会对引入的资源进行分析，通过配置url?limit=10000&amp;name=img/[hash:8].[name].[ext]这样的参数可以实现当文件小于指定大小时自动完成base64转码，大于则保留原始图像，并且借助[hash:8].[name].[ext]的格式配置，读取图片内容hashsum值的前8位，这样做能够保证引用的是图片资源的最新修改版本</p></li>
+<li><p>对于css文件，默认情况下webpack会把css content内嵌到js里边，运行时会使用style标签内联。如果希望将css使用link标签引入，可以使用ExtractTextPlugin插件进行提取。</p></li>
+</ol>
+</blockquote>
+
+<p>相关参阅资料</p>
+
+<ul>
+<li><a href="http://webpack.github.io/docs/using-loaders.html">webpack的loader使用说明</a></li>
+<li><a href="http://webpack.github.io/docs/list-of-loaders.html">webpack常用loader列表</a></li>
+</ul>
+
+<h3 id="toc_9">webpack的模块管理</h3>
+
+<blockquote>
+<ol>
+<li><p>webpack同时提供了对CommonJS、AMD和ES6模块化标准的支持，对于非前三种标准开发的模块，webpack提供了shimming modules的功能。</p></li>
+<li><p>受Node.js的影响，越来越多的前端开发者开始采用CommonJS作为模块开发标准，npm已经逐渐成为前端模块的托管平台,借用webpack我们可以把node_modules路径添加到resolve search root列表里边，这样就可以直接load npm模块.</p></li>
+<li><p>Webpack是使用类似Browserify的方式在本地按目录对依赖进行查找，通过配置extensions属性列表可以对需要查找的资源扩展名进行自动补全，如require(&#39;common&#39;)，webpack会自动在目录下尝试匹配查找common.js,common.jsx.common.json等文件。</p></li>
+</ol>
+</blockquote>
+
+<div><pre><code class="language-javascript">resolve: {
+    root: [process.cwd() + &#39;/dev&#39;, process.cwd() + &#39;/node_modules&#39;], // 绝对路径，资源的寻址会从这里开始查找
+    extensions: [&#39;&#39;, &#39;.coffee&#39;, &#39;.js&#39;, &#39;.jsx&#39;, &#39;.json&#39;],
+    alias: {
+      &#39;utils&#39;: &#39;js/libs/utils&#39;,
+      &#39;widget&#39;: path.join(__dirname, &#39;./dev/js&#39;, &#39;widget&#39;),
+      &#39;mixins&#39;: path.join(__dirname, &#39;./dev/js&#39;, &#39;mixins&#39;),
+      &#39;models&#39;: path.join(__dirname, &#39;./dev/js&#39;, &#39;models&#39;),
+    }
+}
+
+// 从node_modules中引入资源
+import React from &#39;react&#39;;
+import { Badge, Icon, Modal } from &#39;antd&#39;;
+
+// 通过alias引入资源
+import { Utils as util } from &#39;utils&#39;;
+import Position from &#39;models/position&#39;;
+import TextInput from &#39;widget/textInput&#39;;
+
+// 使用commonJS的方式引入资源
+childRoutes: [
+  require(&#39;./routes/Recruitment&#39;),
+  require(&#39;./routes/Employee/&#39;),
+  require(&#39;./routes/MessageCenter/&#39;)
+];
+var $ = require(&#39;jquery&#39;);
+
+// 使用amd的方式引入资源
+define(function(require) {
+    var $ = require(&#39;jquery&#39;);
+    $(&#39;body&#39;).text(&#39;hello world&#39;);
+});
+</code></pre></div>
+
+<h2 id="toc_10">资源的编译与输出</h2>
+
+<p>webpack中的一切资源皆被当做模块：</p>
+
+<ol>
+<li>webpack的中的主要概念：模块（module）、入口文件（entry）、分块（chunk）、出口（output）。</li>
+<li>module指各种资源文件，如js、css、图片、svg、scss、less等等，。</li>
+</ol>
+
+<p>webpack编译输出的文件包括以下３种：</p>
+
+<ul>
+<li>entry：入口，可以是一个或者多个资源合并而成，由html通过script标签引入</li>
+<li>chunk：被entry所依赖的额外的代码块，同样可以包含一个或者多个文件</li>
+<li>filename：实际文件(图片，音频，视频，文本片段，css等，字体文件)</li>
+</ul>
+
+<div><pre><code class="language-javascript">
+module.exports = {
+    // 入口，它定义了打包的入口文件，数组中的文件会按顺序进行，并且它会自行解决依赖问题。
+    entry = {
+      index: path.resolve(APP_PATH, &#39;index.js&#39;),
+      myInterviewList: path.resolve(APP_PATH, &#39;myInterviewList.js&#39;),
+      todayInterviewList: path.resolve(APP_PATH, &#39;todayInterviewList.js&#39;),
+      // 公用模块
+      vendors: [
+        &#39;antd&#39;,
+        &#39;jquery&#39;,
+        &#39;utils&#39;,
+        &#39;underscore&#39;,
+        path.resolve(CSS_PATH, &#39;vendors.css&#39;)
+      ]
+    },
+    // 出口，它定义了输出文件的的位置，包括路径，文件名，还可能有运行时的访问路径（publicPath）参数。
+    output: {
+     path: path.resolve(ROOT_PATH, &#39;people&#39;),
+     filename: &#39;js/[name].js&#39;,
+     publicPath: &#39;/static/people/&#39;,
+     chunkFilename: &#39;js/[chunkhash:8].chunk.js&#39;
+   }
+};
+</code></pre></div>
+
+<p>其中entry项是入口文件路径映射表，output项是对输出文件路径和名称的配置，占位符如[id]、[chunkhash]、[name]等分别代表编译后的模块id、chunk的hashnum值、chunk名等，可以任意组合决定最终输出的资源格式。hashnum的做法，基本上弱化了版本号的概念，版本迭代的时候chunk是否更新只取决于chnuk的内容是否发生变化，下面即为webpack打包输出：</p>
+
+<p><img src="./imgs/build.png" alt="build.png"></p>
+
+<h2 id="toc_11">打包技巧</h2>
+
+<p>webpack中提供非常丰富的打包API和插件，充分利用好这些资源能极大的提升项目的构建输出效率与性能，其中有几个必须了解的打包理念如下介绍：</p>
+
+<h3 id="toc_12">chunk</h3>
+
+<p>在开发webapp时，通常脚本的体积会急剧增大，但是并非所有的功能都会在页面加载时即用到，出于性能优化的需要，对于这部分资源我们希望做成异步加载，所以这部分的代码一般不用打包到入口文件里边，webpack针对此种类型提供了成为<a href="http://webpack.github.io/docs/code-splitting.html">code splitting</a>的代码切块方案，主要的api为：<strong>require.ensure(dependencies, callback)</strong>。</p>
+
+<div><pre><code class="language-javascript"> module.exports = {
+  path: &#39;recruitment&#39;,
+  getComponent(location, cb) {
+    cb(null, require(&#39;./components/search&#39;));
+  },
+  getChildRoutes(location, cb) {
+    require.ensure([], (require) =&gt; {
+      require(&#39;./routes/Position&#39;),
+      require(&#39;./routes/MailTemplate&#39;),
+      require(&#39;./routes/Talent&#39;),
+      require(&#39;./routes/Interview&#39;),
+      require(&#39;./routes/Offers&#39;),
+      require(&#39;./routes/OwnInterview/&#39;)
+    });
+  }
+};</code></pre></div>
+
+<p>这样做的好处就是可以做到按需实现应用脚本资源的加载，典型的实用场景如下：</p>
+
+<div><pre><code class="language-javascript"> var component = getUrlQuery(&#39;component&#39;);
+　if(&#39;dialog&#39; === component) {
+   require.ensure([], function(require) {
+    　var dialog = require(&#39;./components/dialog&#39;);
+   });
+　}
+
+  if(&#39;toast&#39; === component) {
+  　require.ensure([], function(require) {
+     　var toast = require(&#39;./components/toast&#39;);
+    });
+  }
+};</code></pre></div>
+
+<p>webpack会将require.ensure()包裹的部分单独打包了，即图中看到的[hash].chunk.js，既解决了异步加载的问题，又保证了加载到的是最新的chunk的内容。</p>
+
+<p><img src="./imgs/chunkoutput.png" alt="chunkoutput.png"></p>
+
+<p>资源加载示意图：</p>
+
+<p><img src="./imgs/ensure.png" alt="ensure.png"></p>
+
+<h3 id="toc_13">commonsChunk</h3>
+
+<p>使用r.js打包AMD模块时遇到的资源重复打包的问题：
+<img src="./imgs/rjs.jpg" alt="rjs.jpg"></p>
+
+<p>有时考虑类库代码的缓存和公共脚本资源的复用，比如多个页面的模块可能会公用一部分资源库（如:React,jQuery,underscore等），我们会通过使用commonsPlugin插件来分析模块的共用代码, 并且单独打一个包出来作为公用资源（放至CDN缓存）。</p>
+
+<div><pre><code class="language-javascript">var CommonsChunkPlugin = require(&quot;webpack/lib/optimize/CommonsChunkPlugin&quot;);
+module.exports = {
+    entry: {
+        p1: &quot;./page1&quot;,
+        p2: &quot;./page2&quot;,
+        p3: &quot;./page3&quot;,
+        ap1: &quot;./admin/page1&quot;,
+        ap2: &quot;./admin/page2&quot;
+    },
+    output: {
+        filename: &quot;[name].js&quot;
+    },
+    plugins: [
+        new CommonsChunkPlugin(&quot;commons.js&quot;)
+    ]
+};</code></pre></div>
+
+<p>同时我们也可以通过使用Vendor chunk的方式，来自行控制common模块中的内容：</p>
+
+<div><pre><code class="language-javascript">var webpack = require(&#39;webpack&#39;);
+
+module.exports = {
+  index: path.resolve(APP_PATH, &#39;index.js&#39;),
+  myInterviewList: path.resolve(APP_PATH, &#39;myInterviewList.js&#39;),
+  todayInterviewList: path.resolve(APP_PATH, &#39;todayInterviewList.js&#39;),
+  // 公用模块
+  vendors: [
+    &#39;antd&#39;,
+    &#39;jquery&#39;,
+    &#39;utils&#39;,
+    &#39;underscore&#39;,
+    path.resolve(CSS_PATH, &#39;vendors.css&#39;)
+  ]
+};
+
+plugins: [
+  new CommonsChunkPlugin({
+    name: &#39;vendors&#39;, // chunkname
+    filename: &#39;js/vendors.js&#39; // filename
+  }),
+]</code></pre></div>
+
+<p>详细资料可参阅：</p>
+
+<ul>
+<li><a href="https://github.com/webpack/docs/wiki/optimization#multi-page-app">multi-page-app</a></li>
+<li><a href="https://github.com/petehunt/webpack-howto#8-optimizing-common-code">optimizing-common-code</a></li>
+</ul>
+
+<h3 id="toc_14">UglifyJs</h3>
+
+<p>在完成项目模块打包后，通常我们需要对生产环境中的js代码进行压缩和混淆，可以借助UglifyJsPlugin对我们的工程代码进行压缩。</p>
+
+<div><pre><code class="language-javascript">var webpack = require(&#39;webpack&#39;);
+var uglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
+module.exports = {
+  entry: &#39;./main.js&#39;,
+  output: {
+    filename: &#39;bundle.js&#39;
+  },
+  plugins: [
+    new uglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    })
+  ]
+};</code></pre></div>
+
+<h3 id="toc_15">Externals</h3>
+
+<p>相对采用entry作为入口引入资源，我们经常也会引用外外连或者第三方网站的资源脚本（比如Google的Analytics,钉钉或微信的sdk脚本库,第三CDN上托管的资源文件等），因为没有走webpack的打包过程，这就需要我们手动将这些脚本的全局变量配置到我们的项目工程设置中才能在被工程项目识别,比如我们需要调用钉钉的sdk：</p>
+
+<div><pre><code class="language-shell">https://g.alicdn.com/ilw/ding/0.7.5/scripts/dingtalk.js</code></pre></div>
+
+<p>根据钉钉的要求，引入dingtalk.js后会得到一个全局的变量dd，那我们就需要在配置文件中加入：</p>
+
+<div><pre><code class="language-javascript">// webpack.config.js
+module.exports = {
+  entry: &#39;./main.js&#39;,
+  output: {
+    filename: &#39;bundle.js&#39;
+  },
+  externals: {
+    // require(&#39;data&#39;) 将作为一个externals,并被赋予变量进行访问
+    &#39;dd&#39;: &#39;dd&#39;
+  }
+};</code></pre></div>
+
+<p>在实际工程中书写即：</p>
+
+<div><pre><code class="language-javascript">// main.js
+var dd = require(&#39;dd&#39;);
+console.log(dd.device);</code></pre></div>
+
+<h3 id="toc_16">Environment flags</h3>
+
+<p>Webpack 提供的设置环境变量来优化代码的方案，通过配置在启动命令行前加上参数，引入魔法全局变量（magic globals）,就可以在代码读取相关环境信息来启动对应的功能（如在开发环境和生产环境中是否需要为资源增加hash值，css在开发环境中作为内联资源方便调试但是在生产环境中需要打包成独立文件等等）</p>
+
+<div><pre><code class="language-javascript">// definePlugin 会把定义的string 变量插入到Js代码中。
+var definePlugin = new webpack.DefinePlugin({
+  __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || &#39;true&#39;)),
+  __PRERELEASE__: JSON.stringify(JSON.parse(process.env.PRERELEASE || &#39;false&#39;))
+});
+
+module.exports = {
+  entry: &#39;./main.js&#39;,
+  output: {
+    filename: &#39;bundle.js&#39;
+  },
+  plugins: [definePlugin]
+};</code></pre></div>
+
+<p>命令行运行时：</p>
+
+<div><pre><code class="language-shell">$ env DEBUG=true webpack-dev-server --progress --colors --hot</code></pre></div>
+
+<p>在实际工程代码中可以读取到:</p>
+
+<div><pre><code class="language-javascript">if (__DEV__) {
+  // __DEV__ == true
+  console.warn(&#39;Extra logging&#39;);
+}
+// ...
+if (__PRERELEASE__) {
+  showSecretFeature();
+}</code></pre></div>
+
+<h3 id="toc_17">ProvidePlugin</h3>
+
+<p>通常情况下我们都需要先require相关资源并赋值变量才能进行相关操作，如: var $=require(&#39;jquery&#39;); 但是当我们很多页面都需要使用jquery或者在引入jquery插件时都需要重复定义难免会有些亢余，webpack提供了ProvidePlugin，只需要在配置文件中定义一次，即可在所有的模块中无需require直接使用。</p>
+
+<div><pre><code class="language-javascript">module.exports = {
+  entry: &#39;./main.js&#39;,
+  output: {
+    filename: &#39;bundle.js&#39;
+  },
+  plugins: [
+    new webpack.ProvidePlugin({
+       $: &quot;jquery&quot;,
+       jQuery: &quot;jquery&quot;,
+       &quot;window.jQuery&quot;: &quot;jquery&quot;,
+       _: &quot;underscore&quot;
+    }), 
+  ]
+};</code></pre></div>
+
+<p>模块中无需require可使用：</p>
+
+<div><pre><code class="language-javascript">// main.js
+$(&#39;h1&#39;).text(&#39;Hello World&#39;);
+
+$(&#39;#exampleModal&#39;).modal({
+    keyboard: false
+});
+
+_.each([1,2,3],function(v,i){
+    console.log(v);
+});</code></pre></div>
+
+<h3 id="toc_18">HtmlWebpackPlugin</h3>
+
+<p>webpack来动态产生我们最终所期望的HTML文件，而不是指在浏览器运行时使用JS生成HTML片段，通过读取相关配置文件和信息，自动将打包后的资源路径和版本号写入HTML中，包括根据指定的模板，插入打包编译后CSS文件路径，插入打包生成的JS的文件路径。并且还需要为二者添加版本号等。</p>
+
+<div><pre><code class="language-shell">$ npm install html-webpack-plugin --save-dev</code></pre></div>
+
+<p>相关配置如下：</p>
+
+<div><pre><code class="language-javascript">module.exports = {
+  entry: &#39;./main.js&#39;,
+  output: {
+    filename: &#39;bundle.js&#39;
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: &#39;Bytedance People&#39;,
+      chunks: [&#39;vendors&#39;, &#39;index&#39;],
+      template: path.resolve(TMPL_PATH, &#39;index.html&#39;), // 页面入口
+      filename: path.resolve(BUILD_PATH, &#39;index.html&#39;) // 页面出口&#39;,
+     inject: true 
+    }), 
+  ]
+};</code></pre></div>
+
+<p>构建结果：
+<img src="./imgs/injecthtml.png" alt="injecthtml.png"></p>
+
+<p>最终生成页面会被根据构建自动注入相关资源和对应的hash值：</p>
+
+<div><pre><code class="language-none">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Bytedance People&lt;/title&gt;
+    &lt;link href=&quot;/static/people/css/vendors.3af22a03.css&quot; rel=&quot;stylesheet&quot;&gt;
+    &lt;link href=&quot;/static/people/css/index.3af22a03.css&quot; rel=&quot;stylesheet&quot;&gt;&lt;/head&gt;
+&lt;body&gt;
+    &lt;div id=&quot;mainBox&quot; class=&quot;main-box&quot;&gt;
+        ......
+    &lt;/div&gt;
+    &lt;script src=&quot;/static/people/js/vendors.3af22a03.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;/static/people/js/index.3af22a03.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+
+<p>更多配置可参考</p>
+
+<ul>
+<li><a href="https://www.npmjs.com/package/html-webpack-plugin">html-webpack-plugin</a></li>
+</ul>
+
+<h2 id="toc_19">Devtool</h2>
+
+<p>由于webpack特有的打包机制和对babel,react相关loader的结合,并采用了<a href="http://www.ruanyifeng.com/blog/2013/01/javascript_source_map.html">sourcemap</a>的形式对代码进行跟踪调试，我们在开发阶段需要选择合适的devtool方便我们的代码调试，webpack官方提供如下几种devtool：</p>
+
+<table>
+<thead>
+<tr>
+    <th>devtool</th>
+    <th>build speed</th>
+    <th>rebuild speed</th>
+    <th>production supported</th>
+    <th>quality</th>
+</tr>
+</thead>
+<tbody>
+    <tr>
+    <td>eval</td>
+    <td>+++</td>
+    <td>+++</td>
+    <td>no</td>
+    <td>generated code</td>
+    </tr>
+    <tr>
+    <td>cheap-eval-source-map</td>
+    <td>+</td>
+    <td>++</td>
+    <td>no</td>
+    <td>transformed code (lines only)</td>
+    </tr>
+    <tr>
+    <td>cheap-source-map</td>
+    <td>+</td>
+    <td>o</td>
+    <td>yes</td>
+    <td>transformed code (lines only)</td>
+    </tr>
+    <tr>
+    <td>cheap-module-eval-source-map</td>
+    <td>o</td>
+    <td>++</td>
+    <td>no</td>
+    <td>original source (lines only)</td>
+    </tr>
+    <tr>
+    <td>cheap-module-source-map</td>
+    <td>o</td>
+    <td>-</td>
+    <td>yes</td>
+    <td>original source (lines only)</td>
+    </tr>
+    <tr>
+    <td>eval-source-map</td>
+    <td>–</td>
+    <td>+</td>
+    <td>no</td>
+    <td>original source</td>
+    </tr>
+    <tr>
+    <td>source-map</td>
+    <td>–</td>
+    <td>–</td>
+    <td>yes</td>
+    <td>original source</td>
+    </tr>
+</tbody>
+</table>
+
+<p>使用如下：</p>
+
+<div><pre><code class="language-javascript">    module.exports = {
+      entry: &#39;./main.js&#39;,
+      output: {
+        filename: &#39;bundle.js&#39;
+      },
+      
+      // 推荐在开发阶段使用#source-map，能方便定位代码位置，生产环境构建可以不用次选项
+      devtool: &#39;#source-map&#39;
+    };</code></pre></div>
+
+<h2 id="toc_20">DevServer</h2>
+
+<p>webpack-dev-server是一个基于node的小型静态文件服务器,它使用webpack-dev-middleware中间件来为通过webpack打包生成的资源文件提供Web服务。它还有一个通过Socket.IO连接着webpack-dev-server服务器的小型运行时程序。webpack-dev-server发送关于编译状态的消息到客户端，客户端根据消息作出响应，其中作用如下:</p>
+
+<ul>
+<li><p>webpack-dev-server有两种模式支持自动刷新,frame模式和inline模式,能自动识别文件改动然后完成页面刷新,推荐使用inline模式：<strong>webpack-dev-server --inline</strong></p></li>
+<li><p>webpac-dev-server支持<strong>Hot Module Replacement</strong>，即模块热替换，在前端代码变动的时候无需整个刷新页面，只把变化的部分替换掉。使用HMR功能也有两种方式：命令行方式和Node.js API。</p></li>
+</ul>
+
+<p>综合上述两点，使用wepack-dev-server辅助开发，使得开发者在开发前端代码的过程中无需频繁手动刷新页面，使用HMR甚至不用等待页面刷新，可以在一定程度上提升开发的效率。</p>
+
+<h3 id="toc_21">基本配置如下：</h3>
+
+<div><pre><code class="language-javascript">module.exports = {
+  entry: &#39;./main.js&#39;,
+  output: {
+    filename: &#39;bundle.js&#39;
+  },
+  devServer: {
+    historyApiFallback: true,
+    hot: true,
+    inline: true,
+    progress: true,
+    color: true,
+    port: 3000,
+    host: &#39;127.0.0.1&#39;,  // 注入页面的资源地址
+    contentBase: &#39;./dev&#39;, // server访问的根路径
+  }
+};</code></pre></div>
+
+<p>当进行前后端联调的时候，我们需要考虑将后端服务器和webpack-dev-server进行配合使用，webpack-dev-server只用来为webpack打包生成的资源文件提供服务，比如js文件、图片文件、css文件等；后端服务器除提供API接口外，还提供入口HTML（jinja2），并通过加入Charles进行代理转发。
+<img src="./imgs/webpack-dev-server.jpg" alt="webpack-dev-server.jpg"></p>
+
+<h3 id="toc_22">charles相关配置如下：</h3>
+
+<p><img src="./imgs/charles.png" alt="charles.png"></p>
+
+<h3 id="toc_23">注意事项</h3>
+
+<p>要将webpack-dev-server与后端服务器结合使用，需要考虑如下两种场景：</p>
+
+<ul>
+<li><p>如果HTML文件是从后端服务器发出的，这时页面的根地址变成了后端服务器地址，怎么使得webpack产生的资源文件在请求资源的时候是向web-dev-server请求而不是后端服务器请求？需要在webpack配置文件中的output.publicPath配置项写上绝对URL地址，例如output.publicPath = &quot;http://127.0.0.1:3000/static/people/&quot;。这时，webpack打包产生的资源文件里面的url地址都会是绝对地址，而不是相对地址，在生产环境中再切换成实际部署地址：&#39;/static/people/&#39;即可。</p></li>
+<li><p>后端服务器产生的入口HTML文件要向webpack-dev-server请求资源文件（多用在开发联调阶段），只需在HTML文件中加入资源文件的绝对地址，例如：src=&quot;http://127.0.0.1:3000/assets//static/people/js/index.js&quot;</p></li>
+</ul>
+
+<h3 id="toc_24">Hot Module Replacement</h3>
+
+<p>HMR简单说就是webpack启动一个本地webserver（webpack-dev-server），负责处理由webpack生成的静态资源请求,所有资源存储在内存的,所以编译和更新的速度度会比较快。</p>
+
+<p>webpack官网对module、entry、chunk三者的关系以及webpack如何实现热更新的图示：</p>
+
+<p><img src="./imgs/hmr.jpg" alt="hmr.jpg"></p>
+
+<p>enter0表示入口文件，chunk1~4分别是提取公共模块所生成的资源块，当模块4和9发生改变时，因为模块4被打包在chunk1中，模块9打包在chunk3中，所以HMR runtime会将变更部分同步到chunk1和chunk3中对应的模块，从而达到hot replace。</p>
+
+<p>webpack-dev-server的启动很简单，配置完成之后可以通过cli启动，然后在页面引入入口文件时添加webpack-dev-server的host即可将HMR集成到已有服务器：</p>
+
+<div><pre><code class="language-none">webpack-dev-server --hot</code></pre></div>
+
+<p>启动HMR之后，每次保存都会重新编译生成新的chnuk，通过控制台的log，可以很直观地看到这一过程：</p>
+
+<p><img src="./imgs/hmr_build.png" alt="hmr_build.png"></p>
+
+<p>打开页面后可以在浏览器的控制栏里读到相关信息：</p>
+
+<div><pre><code class="language-none">[HMR] Waiting for update signal from WDS...  dev-server.js?b7b7:60 
+[WDS] Hot Module Replacement enabled.        client?4854:19</code></pre></div>
+
+<p>HMR前缀的信息由webpack/hot/dev-server模块产生，WDS前缀的信息由webpack-dev-server客户端产生。</p>
+
+<p>更多关于HMR的相关资料可以参阅：</p>
+
+<ul>
+<li><a href="http://webpack.github.io/docs/webpack-dev-server.html#hot-mode">hot-mode</a></li>
+<li><a href="http://webpack.github.io/docs/hot-module-replacement.html">HMR</a></li>
+</ul>
+
+<h3 id="toc_25">DevTool</h3>
+
+<h3 id="toc_26">前端数据模拟(Mock)</h3>
+
+<p>在开发过程中为了实现前后端的解耦开发，我们可以在将mock server和webpack做些结合，方便的为前端项目提供各类模拟数据，同时也能做到前端工程不依赖服务端的环境，灵活迁移。</p>
+
+<p>安装mockserver：</p>
+
+<div><pre><code class="language-none">$ npm install fms --save dev</code></pre></div>
+
+<p>编写mock数据脚本：</p>
+
+<div><pre><code class="language-javascript">// mock data
+var Mock = require(&#39;mockjs&#39;);
+var listData = Mock.mock({
+  &#39;list|1-40&#39;: [{
+    &#39;id|+1&#39;: 1,
+    &#39;description&#39;: &#39;sad&#39;,
+    &#39;hr&#39;: [
+      {
+        &#39;name&#39;: &#39;@name&#39;,
+        &#39;id&#39;: 12
+      }
+    ],
+    &#39;direct_leader_id&#39;: 54,
+    &#39;direct_leader&#39;: &#39;钱绮琪&#39;,
+    &#39;city&#39;: &#39;成都&#39;,
+    &#39;name&#39;: &#39;\b服务端开发工程师&#39;,
+    &#39;position_type&#39;: &#39;全职&#39;,
+    &#39;department&#39;: {
+      &#39;id&#39;: &#39;288980000000098057&#39;,
+      &#39;name&#39;: &#39;业务研发Web&#39;
+    },
+    &#39;large_department&#39;: {
+      &#39;id&#39;: &#39;288980000000086281&#39;,
+      &#39;name&#39;: &#39;业务研发&#39;
+    }
+  }]
+});
+
+var mockData = {
+  type: &#39;get&#39;,
+  title: &#39;positionList&#39;,
+  url: &#39;/mockapi/recruitment/position/list/&#39;,
+  request: {
+    limit: 10,
+    offset: 0
+  },
+  res: {
+    success: {
+      success: true,
+      count: 40,
+      positions: listData.list
+    },
+    fail: {
+      success: false,
+      msg: &#39;error happen&#39;
+    }
+  }
+};
+
+module.exports = mockData;
+
+
+// fms server config
+var fms = require(&#39;fms&#39;);
+var util = require(&#39;util&#39;);
+var common = require(&#39;./api/common&#39;);
+var recruitment = require(&#39;./api/recruitment&#39;);
+var employee = require(&#39;./api/employee&#39;);
+var employeeInfo = require(&#39;./api/employee_info&#39;);
+
+var fmsData = {
+
+  setting: function (port) {
+    fms.run({
+      port: port || 3001,
+      root: process.cwd()
+    });
+  },
+
+  recruitment: function () {
+    fms.ajax(recruitment.position.list);
+    fms.ajax(recruitment.mail_template.list);
+  },
+
+  start: function (port) {
+    this.setting(port);
+    this.common();
+    this.recruitment();
+    this.employee();
+    this.employee_info();
+  }
+};
+module.exports = fmsData;</code></pre></div>
+
+<p>运行mock server</p>
+
+<div><pre><code class="language-javascript">var mockServer = require(&#39;./mock/mockServer&#39;);
+mockServer.start(3001);</code></pre></div>
+
+<p>推荐将运行命令写在gulp中，即能以gulp的指令方式运行：</p>
+
+<p><img src="./imgs/fms.png" alt="fms.png"></p>
+
+<p>通过访问:<strog>http://127.0.0.1:3001</strong>可以打开fms的系统管理界面并进行相关mock数据配置：</p>
+
+<p><img src="./imgs/fmserver.png" alt="fmserver.png"></p>
+
+<p>webpack-dev-server中的配置如下：</p>
+
+<div><pre><code class="language-javascript">module.exports = {
+  entry: &#39;./main.js&#39;,
+  output: {
+    filename: &#39;bundle.js&#39;
+  },
+  devServer: {
+    port: 3000,
+    host: &#39;127.0.0.1&#39;,  // 注入页面的资源地址
+    contentBase: &#39;./dev&#39;, // server访问的根路径
+    proxy: {
+      &#39;/mockapi/*&#39;: {
+        // 将页面api用charles代理到mockapi
+        // 然后自动匹配到：http://127.0.0.1:3001/mockapi/
+        target: &#39;http://127.0.0.1:3001&#39;,
+        secure: false
+      }
+    }
+  }
+};</code></pre></div>
+
+<p>在devServer中加入一个代理接口映射，当页面api被转发到/mockapi/*，会自动访问到mock server的数据。</p>
+
+<p><img src="./imgs/mockapi.png" alt="mockapi.png"></p>
+
+<h3 id="toc_27">与gulp结合</h3>
+
+<p>webpack是一个非常强大的资源管理和构建工具，但是他同样也能很方便的与其他的构建工具进行结合，成为其指令的一部分。</p>
+
+<div><pre><code class="language-none">npm install gulp-webpack --save dev</code></pre></div>
+
+<p>在gulpfile.js编写工作指令：</p>
+
+<div><pre><code class="language-javascript">var webpack = require(&#39;gulp-webpack&#39;);
+var webpackConfigProd = require(&#39;./webpack.config.prod&#39;);
+gulp.task(&#39;webpack&#39;, function () {
+  return gulp
+    .src(devPath)
+    .pipe(webpack(webpackConfigProd))
+    .pipe(gulp.dest(distPath));
+});</code></pre></div>
+
+<p>更多相关介绍可以查看：</p>
+
+<ul>
+<li><a href="http://webpack.github.io/docs/usage-with-grunt.html">usage-with-grunt</a></li>
+<li><a href="http://webpack.github.io/docs/usage-with-gulp.html">usage-with-gulp</a></li>
+<li><a href="http://webpack.github.io/docs/usage-with-bower.html">usage-with-bower</a></li>
+<li><a href="http://webpack.github.io/docs/usage-with-karma.html">usage-with-karma</a></li>
+</ul>
+
+<h3 id="toc_28">性能优化</h3>
+
+<p>关于webpack的性能优化相关建议可以查看AlloyTeam的<a href="http://www.alloyteam.com/2016/01/webpack-use-optimization/">十大webpack使用优化建议</a></p>
+
+<h3 id="toc_29">webpack2.0新特性</h3>
+
+<p>webpack2.0已经进入beta阶段，可以通过<a href="https://github.com/cssmagic/blog/issues/58#rd">Webpack 2 有哪些新东西</a>来了解webpack最新的一些特性和功能。</p>
+
+<h2 id="toc_30">小结</h2>
+
+<p>webpack以一种相对优雅的方式解决了前端资源依赖管理的问题，它在内部已经集成了许多资源依赖处理的细节，但是对于使用者而言只需要做少量的配置，再结合构建工具，很容易搭建一套前端工程解决方案。</p>
+
+<p>基于webpack的前端自动化工具，可以自由组合各种开源技术栈（Koa/Express/其他web框架、webpack、Sass/Less/Stylus、Gulp/Grunt等），没有复杂的资源依赖配置，工程结构也相对简单和灵活。</p>
+
+
+</body>
+
+</html>
